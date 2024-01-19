@@ -89,5 +89,11 @@ function selectImage(event) {
   const modalWindow = basicLightbox.create(
     `<img src="${linkImage}" width="1112" height="640">`
   );
-  modalWindow.show();
+  modalWindow.show(
+    document.addEventListener("keydown", (event) => {
+      if (event.code === "Escape") {
+        modalWindow.close();
+      }
+    })
+  );
 }

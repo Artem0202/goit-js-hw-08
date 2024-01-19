@@ -21,6 +21,7 @@ body {
 }
 .gallery-link {
   display: inline-flex;
+  cursor: zoom-in;
 }
 .gallery-image {
   width: 360px;
