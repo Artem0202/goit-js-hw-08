@@ -75,25 +75,27 @@ const galleryItems = images
   .join("");
 
 gallery.insertAdjacentHTML("beforeend", galleryItems);
-gallery.addEventListener("click", (event) => {
-  event.preventDefault();
-});
-gallery.addEventListener("click", selectImage);
+gallery.addEventListener("click", handleImageSelection);
 
-function selectImage(event) {
+function handleImageSelection(event) {
+  event.preventDefault();
   if (event.target.nodeName !== "IMG") {
     return;
   }
   const linkImage = event.target.dataset.source;
   console.log(linkImage);
+  const handleClickEscape = (event) => {
+    if (event.code === "Escape") {
+      modalWindow.close(
+        document.removeEventListener("keydown", handleClickEscape)
+      );
+    }
+  };
   const modalWindow = basicLightbox.create(
-    `<img src="${linkImage}" width="1112" height="640">`
+    `<img src="${linkImage}" width="1112" height="640">`,
+    {
+      onShow: document.addEventListener("keydown", handleClickEscape),
+    }
   );
-  modalWindow.show(
-    document.addEventListener("keydown", (event) => {
-      if (event.code === "Escape") {
-        modalWindow.close();
-      }
-    })
-  );
+  modalWindow.show();
 }
